@@ -1,0 +1,28 @@
+@import 'variables';
+
+a {
+    text-decoration: none;
+    color: $light;
+}
+
+@mixin link($color) {
+  color: $color;
+
+  &:hover {
+    color: darken($color, 8%);
+  }
+
+  &:active, &:focus {
+    color: darken($color, 10%);
+  }
+}
+
+.link {
+  &-primary {
+    @include link($primary);
+  }
+
+  &-danger {
+    @include link($danger);
+  }
+}

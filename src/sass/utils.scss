@@ -1,0 +1,22 @@
+@mixin box-shadow($percentage: 10%, $size: 10px) {
+    -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+}
+
+@mixin default-width($max-width: 400px) {
+    width: 100%;
+    max-width: $max-width;
+}
+
+@mixin force-break() {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}

@@ -1,0 +1,17 @@
+@import '~src/sass/variables';
+
+footer {
+    background-color: $bg-color;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    padding: 20px;
+    color: $light;
+
+    .author {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,14 @@
+@import '~src/sass/variables';
+
+header {
+    background-color: $bg-color;
+    align-items: center;
+    display: flex;
+    font-size: 30px;
+    padding: 0 20px;
+    height: 60px;
+
+    & .link {
+        color: $light;
+    }
+}
