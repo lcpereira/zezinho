@@ -1,0 +1,80 @@
+<div class="address-panel">
+  <ng-container *ngIf="isFirstStep; then first_step; else second_step"></ng-container>
+</div>
+
+<ng-template #first_step>
+  <div class="first-step">
+    <div class="no-addresses" *ngIf="!addresses || !addresses.length">
+      <span
+        class="mdi icon"
+        [ngClass]="{
+          'mdi-map-search': !addresses,
+          'mdi-map-marker-remove': addresses && !addresses.length
+        }"
+      ></span>
+      <span *ngIf="!addresses"
+        >Informe seu endereço no campo acima e selecione para podermos encontrar produtos próximos
+        de você</span
+      >
+      <span *ngIf="addresses && !addresses.length"
+        >Não encontramos um endereço válido para exibir, experimente buscar pelo nome da rua</span
+      >
+    </div>
+
+    <div class="card" *ngFor="let address of addresses" (click)="onSelectAddress(address)">
+      <span class="mdi mdi-map-marker icon"></span>
+      <span class="address">{{ address.formatted_address }}</span>
+      <span class="mdi mdi-chevron-right icon"></span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #second_step>
+  <div class="second-step">
+    <div class="header">
+      <span (click)="onBackStep()" class="mdi mdi-arrow-left icon"></span>
+    </div>
+
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <div class="inputs">
+        <div>
+          <input
+            type="text"
+            class="input-lg"
+            [class.has-error]="submitted && formControl.streetName.errors?.required"
+            placeholder="Endereço*"
+            formControlName="streetName"
+          />
+        </div>
+
+        <div class="two-column">
+          <input
+            type="number"
+            class="input-lg"
+            [class.has-error]="submitted && formControl.streetNumber.errors?.required"
+            placeholder="Número*"
+            formControlName="streetNumber"
+            min="0"
+          />
+          <input
+            type="text"
+            class="input-lg"
+            placeholder="Complemento"
+            formControlName="streetComplement"
+          />
+        </div>
+
+        <div class="errors" *ngIf="submitted && !addressForm.valid">
+          <small *ngIf="formControl.streetName.errors?.required"
+            >* Volte a tela anterior e preenche a rua</small
+          >
+          <small *ngIf="formControl.streetNumber.errors?.required">* Informe o número da rua</small>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

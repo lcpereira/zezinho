@@ -1,1 +1,22 @@
-<p>home works!</p>
+<div class="home">
+  <div class="box">
+    <div class="search">
+      <div class="search-input">
+        <app-search (addresses)="addresses = $event"></app-search>
+      </div>
+    </div>
+
+    <div class="address">
+      <app-address-panel
+        [addresses]="addresses"
+        (location)="onLocation($event)"
+      ></app-address-panel>
+    </div>
+  </div>
+
+  <div class="map">
+    <ng-container *ngIf="apiMapLoaded | async">
+      <google-map height="100%" width="100%" [options]="mapOptions"></google-map>
+    </ng-container>
+  </div>
+</div>

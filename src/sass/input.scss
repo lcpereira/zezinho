@@ -1,0 +1,32 @@
+@import 'variables';
+
+@mixin input-size($size) {
+  height: #{$size}px;
+  margin: #{$size - ($size - 5)}px 0;
+}
+
+input {
+  box-sizing: border-box;
+
+  height: 35px;
+  width: 100%;
+  margin: 2px 0;
+  padding: 0 8px;
+  font-size: rem(14);
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+
+  &:focus {
+    border-color: lighten($dark, 30%);
+  }
+
+  &.input-lg {
+    @include input-size(45);
+  }
+
+  &.has-error {
+    border: 1px solid $danger;
+  }
+}
+
+

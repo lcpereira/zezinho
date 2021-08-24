@@ -1,16 +1,16 @@
 @import 'variables';
 
-@mixin button-bg($bg, $color: #fff, $border: none) {
+@mixin button-bg($bg, $color: $light, $border: none) {
   background: $bg;
   color: $color;
   border: $border;
 
   &:hover {
-    background: darken($bg, 8%);
+    background: darken($bg, 4%);
     transition: all 0.3s ease;
   }
   &:active {
-    background: darken($bg, 25%);
+    background: darken($bg, 6%);
   } 
 }
 
@@ -29,6 +29,6 @@
   }
 
   &-primary {
-    @include button-bg($primary);
+    @include button-bg($primary, $dark);
   }
 }

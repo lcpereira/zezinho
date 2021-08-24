@@ -1,0 +1,143 @@
+@import '~src/sass/variables';
+@import '~src/sass/utils';
+
+.address-panel {
+    @include box-shadow;
+
+    height: 100%;
+    overflow: auto;
+    border-radius: 4px;
+    background-color: $light;
+
+    & .first-step {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        & .no-addresses {
+            flex: 1;
+            display: flex;
+            font-size: 20px;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 50px;
+    
+            & .icon {
+                font-size: 100px;
+                color: #CCCCCC;
+                margin-bottom: 10px;
+            }
+        }
+    
+        & .card {
+            padding: 20px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+    
+            &:hover {
+                @include box-shadow;
+            }
+    
+            & .address {
+                flex: 1;
+            }
+    
+            & .icon {
+                color: #CCCCCC;
+                font-size: 30px;
+                width: 50px;
+    
+                &:first-child {
+                    text-align: start;
+                }
+    
+                &:last-child {
+                    text-align: end;
+                }
+            }
+        }
+    }
+
+    & .second-step {
+        height: 100%;
+        display: flex;
+        padding: 20px;
+        flex-direction: column;
+
+        & .header {
+            margin-bottom: 20px;
+
+            & .icon {
+                font-size: 30px;
+                cursor: pointer;
+                color: #CCCCCC;
+
+                &:hover {
+                    color: $dark;
+                }
+            }
+        }
+
+        & form {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            & .inputs {
+                flex: 1;
+
+                & .errors {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            & .two-column {
+                display: flex;
+                justify-content: space-between;
+
+                @media only screen and (max-width: 400px) {
+                    flex-direction: column;
+                }
+
+                & input {
+                    &:first-child {
+                        margin-right: 6px;
+                    }
+
+                    &:last-child {
+                        margin-left: 6px;
+                    }
+
+                    @media only screen and (max-width: 400px) {
+                        &:first-child {
+                            margin-right: 0;
+                        }
+    
+                        &:last-child {
+                            margin-left: 0;
+                        }
+                    }
+                }
+                
+            }
+
+            & .footer {
+                text-align: center;
+                margin-top: 20px;
+    
+                & button {
+                    width: 300px;
+    
+                    @media only screen and (max-width: 600px) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

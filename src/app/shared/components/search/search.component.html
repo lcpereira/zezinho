@@ -1,0 +1,11 @@
+<div class="search">
+  <input
+    #search
+    type="text"
+    (input)="onSearchByAddress(search.value)"
+    placeholder="Informe seu endereço"
+  />
+  <div class="icon" (click)="getCurrentPosition()" title="Usar a minha localização">
+    <span class="mdi mdi-crosshairs-gps"></span>
+  </div>
+</div>
