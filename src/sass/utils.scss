@@ -20,3 +20,11 @@
     -webkit-hyphens: auto;
     hyphens: auto;
 }
+
+@mixin ellipsis ($max-width){
+    display: inline-block;
+    max-width: $max-width;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

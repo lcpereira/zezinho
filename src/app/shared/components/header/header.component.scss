@@ -1,14 +1,42 @@
 @import '~src/sass/variables';
+@import '~src/sass/utils';
 
 header {
     background-color: $bg-color;
     align-items: center;
     display: flex;
-    font-size: 30px;
+    justify-content: space-between;
     padding: 0 20px;
     height: 60px;
+    color: $light;
 
     & .link {
         color: $light;
+        font-size: 30px;
+
+        @media only screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+
+    & .location {
+        display: flex;
+        align-items: center;
+
+        & .address {
+            margin-left: 5px;
+            margin-right: 10px;
+            @include ellipsis(350px);
+
+            @media only screen and (max-width: 600px) {
+                font-size: 14px;
+                @include ellipsis(130px);
+            }
+        }
+
+        & .remove {
+            cursor: pointer;
+            font-size: 20px;
+        }
     }
 }
