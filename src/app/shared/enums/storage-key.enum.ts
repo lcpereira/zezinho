@@ -1,4 +1,4 @@
 export enum StorageKey {
-  LOCATION = 'location',
+  USER_DATA = 'user-data',
   CHECKOUT = 'checkout',
 }

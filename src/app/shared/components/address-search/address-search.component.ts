@@ -2,14 +2,13 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { MapGeocoder, MapGeocoderResponse } from '@angular/google-maps';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Location } from './search.model';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
+  selector: 'app-address-search',
+  templateUrl: './address-search.component.html',
+  styleUrls: ['./address-search.component.scss'],
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class AddressSearchComponent implements OnInit, OnDestroy {
   @Output() addresses = new EventEmitter<google.maps.GeocoderResult[] | null>();
 
   geocoderDebouncer = new Subject<google.maps.GeocoderRequest>();

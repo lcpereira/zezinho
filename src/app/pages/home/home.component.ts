@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { Location } from '@shared/interfaces/location';
-import { LocalStorageService } from '@shared/services/local-storage.service';
+import { UserData } from '@shared/interfaces/user-data';
+import { LocalStorageService } from '@services/local-storage.service';
 import { StorageKey } from '@shared/enums/storage-key.enum';
 import { Router } from '@angular/router';
+import { DistributorsQuery } from '@graphql/distributors.query';
+import { Distributor, DistributorsRequest } from '@shared/interfaces/distributor';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +34,7 @@ export class HomeComponent implements OnInit {
   constructor(
     httpClient: HttpClient,
     private router: Router,
+    private distributorsQuery: DistributorsQuery,
     private localStorageService: LocalStorageService
   ) {
     // TODO: loading e identificar quando não carregou o mapa
@@ -51,8 +54,32 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onLocation(location: Location): void {
-    this.localStorageService.setItem(StorageKey.LOCATION, location);
+  onUserData(userData: UserData): void {
+    // TODO: mostrar loading...
+    const variables: DistributorsRequest = {
+      algorithm: 'NEAREST',
+      lat: String(userData.latitude),
+      long: String(userData.longitude),
+      now: new Date().toISOString(),
+    };
+
+    this.distributorsQuery
+      .watch(variables)
+      .valueChanges.pipe(map((result) => result.data.pocSearch))
+      .subscribe((distributors) => {
+        if (!distributors || !distributors.length) {
+          // TODO: disparar notificação
+          return;
+        }
+
+        this.saveUserData(distributors[0], userData);
+      });
+  }
+
+  private saveUserData(distributor: Distributor, userData: UserData): void {
+    userData.id = distributor.id;
+
+    this.localStorageService.setItem(StorageKey.USER_DATA, userData);
     this.router.navigate(['products']);
   }
 }

@@ -1,0 +1,11 @@
+@import '~src/sass/variables';
+@import '~src/sass/utils';
+
+.category {
+    @include box-shadow;
+
+    padding: 20px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+}

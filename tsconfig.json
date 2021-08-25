@@ -17,13 +17,30 @@
     "module": "es2020",
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
     "paths": {
-      "@shared/*": ["src/app/shared/*"],
-      "@pages/*": ["src/app/pages/*"],
-      "@environment/*": ["src/environments/*"]
-    }
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@services/*": [
+        "src/app/services/*"
+      ],
+      "@guards/*": [
+        "src/app/guards/*"
+      ],
+      "@graphql/*": [
+        "src/app/graphql/*"
+      ],
+      "@pages/*": [
+        "src/app/pages/*"
+      ],
+      "@environment/*": [
+        "src/environments/*"
+      ]
+    },
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

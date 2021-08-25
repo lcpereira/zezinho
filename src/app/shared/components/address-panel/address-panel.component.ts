@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Location } from '@shared/interfaces/location';
+import { UserData } from '@shared/interfaces/user-data';
 
 @Component({
   selector: 'app-address-panel',
@@ -9,7 +9,7 @@ import { Location } from '@shared/interfaces/location';
 })
 export class AddressPanelComponent {
   @Input() addresses: google.maps.GeocoderResult[] | null = null;
-  @Output() location = new EventEmitter<Location>();
+  @Output() userData = new EventEmitter<UserData>();
 
   submitted = false;
   isFirstStep = true;
@@ -42,17 +42,20 @@ export class AddressPanelComponent {
   onSubmit(): void {
     this.submitted = true;
 
-    if (!this.addressForm.valid) {
+    if (!this.addressForm.valid || !this.currentAddress) {
       return;
     }
 
-    const location: Location = {
+    const userData: UserData = {
+      id: '0', // Id provisório para manter o campo obrigatório na interface
       streetName: this.addressForm.get('streetName')?.value,
       streetNumber: Number(this.addressForm.get('streetNumber')?.value),
       streetComplement: this.addressForm.get('streetComplement')?.value,
+      latitude: this.currentAddress.geometry.location.lat(),
+      longitude: this.currentAddress.geometry.location.lng(),
     };
 
-    this.location.emit(location);
+    this.userData.emit(userData);
   }
 
   private getStreetName(
