@@ -1,13 +1,47 @@
-<div *ngIf="categories$ | async as categories; else loadingTemplate">
-  <div *ngFor="let category of categories">
-    <app-category [category]="category"></app-category>
+<div class="page-content">
+  <div class="search">
+    <app-products-search (search)="onSearch($event)"></app-products-search>
+  </div>
+
+  <div class="categories" *ngIf="categories$ | async as categories; else categoriesLoadingTemplate">
+    <div class="categories-item" *ngFor="let category of categories">
+      <app-category
+        (click)="onClickCategory(category)"
+        [active]="category.id === currentCategory?.id"
+        [category]="category"
+      >
+      </app-category>
+    </div>
+  </div>
+
+  <div
+    class="products"
+    *ngIf="products$ | async as products; else productsLoadingTemplate"
+    [class.no-products]="!products.length"
+  >
+    <div class="products-item" *ngFor="let product of products">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+
+    <div class="no-products-content" *ngIf="!products.length">
+      <span class="mdi mdi-cart-outline icon"></span>
+      <span>Sem produtos por aqui</span>
+    </div>
   </div>
 </div>
 
-<div class="products" *ngIf="products$ | async as products; else loadingTemplate">
-  <div class="products-item" *ngFor="let product of products">
-    <app-product-card [product]="product"></app-product-card>
+<ng-template #categoriesLoadingTemplate>
+  <div class="categories">
+    <div class="categories-item" *ngFor="let fakeCategory of [1, 2, 3, 4, 5, 6]">
+      <app-category></app-category>
+    </div>
   </div>
-</div>
+</ng-template>
 
-<ng-template #loadingTemplate> Carregando... </ng-template>
+<ng-template #productsLoadingTemplate>
+  <div class="products">
+    <div class="products-item" *ngFor="let fakeProduct of [1, 2, 3, 4, 5, 6]">
+      <app-product-card></app-product-card>
+    </div>
+  </div>
+</ng-template>

@@ -15,6 +15,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
+  search: string | null = null;
+  userData: UserData | null = null;
+  category: Category | null = null;
   products$: Observable<Product[]> | null = null;
   categories$: Observable<Category[]> | null = null;
 
@@ -24,23 +27,43 @@ export class ProductsComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {}
 
+  get currentCategory(): Category | null {
+    return this.category;
+  }
+
   ngOnInit(): void {
     const userData = this.localStorageService.getItemAsJSON<UserData>(StorageKey.USER_DATA);
 
-    if (!userData) {
+    this.userData = userData;
+    this.loadProducts();
+    this.loadCategories();
+  }
+
+  onSearch(value: string): void {
+    this.search = value;
+    this.loadProducts();
+  }
+
+  onClickCategory(category: Category): void {
+    if (this.category && this.category.id === category.id) {
+      this.category = null;
+    } else {
+      this.category = category;
+    }
+
+    this.loadProducts();
+  }
+
+  private loadCategories(): void {
+    if (!this.userData) {
       // caso não exista ou algum valor tenha sido alterado, poderia ir para a home refazer o processo
       return;
     }
 
-    this.loadProducts(userData);
-    this.loadCategories(userData);
-  }
-
-  private loadCategories(userData: UserData): void {
     const variables: CategoriesRequest = {
       algorithm: 'NEAREST',
-      lat: String(userData.latitude),
-      long: String(userData.longitude),
+      lat: String(this.userData.latitude),
+      long: String(this.userData.longitude),
       now: new Date().toISOString(),
     };
 
@@ -49,12 +72,23 @@ export class ProductsComponent implements OnInit {
       .valueChanges.pipe(map((result) => result.data.allCategory));
   }
 
-  private loadProducts(userData: UserData, search?: string, categoryId?: string): void {
+  private loadProducts(): void {
+    if (!this.userData) {
+      // caso não exista ou algum valor tenha sido alterado, poderia ir para a home refazer o processo
+      return;
+    }
+
     const variables: ProductsRequest = {
-      id: userData.id,
-      search,
-      categoryId,
+      id: this.userData.id,
     };
+
+    if (this.search) {
+      variables.search = this.search;
+    }
+
+    if (this.category) {
+      variables.categoryId = this.category.id;
+    }
 
     this.products$ = this.productsQuery
       .watch(variables)

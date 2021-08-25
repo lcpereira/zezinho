@@ -4,8 +4,21 @@
 .category {
     @include box-shadow;
 
-    padding: 20px;
-    cursor: pointer;
-    text-align: center;
+    background-color: $light;
     border-radius: 4px;
+    text-align: center;
+    padding: 15px 10px;
+    cursor: pointer;
+
+    &:hover {
+        color: darken($primary, 10%);
+    }
+
+    &.active {
+        background-color: $primary;
+
+        &:hover {
+            color: darken($light, 60%);
+        }
+    }
 }

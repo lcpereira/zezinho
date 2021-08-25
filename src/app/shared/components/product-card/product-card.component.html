@@ -1,1 +1,33 @@
-{{ product | json }}
+<div class="product" *ngIf="product">
+  <div class="product-header">
+    <img [src]="product.images[0].url" alt="Product Image" />
+  </div>
+
+  <div class="product-content">
+    <span>
+      {{ product.title }}
+    </span>
+  </div>
+
+  <div class="product-footer">
+    <span class="price">{{ product.productVariants[0].price | currency }}</span>
+    <span
+      class="mdi cart"
+      [ngClass]="{ 'mdi-cart-plus': !isAtCheckout, 'mdi-cart-remove active': isAtCheckout }"
+      (click)="onCheckout(product)"
+    ></span>
+  </div>
+</div>
+
+<!-- loading -->
+<div class="product" *ngIf="!product">
+  <div class="product-header">
+    <ngx-skeleton-loader [theme]="{ width: '100px', height: '100px' }"></ngx-skeleton-loader>
+  </div>
+
+  <div class="product-content">
+    <ngx-skeleton-loader></ngx-skeleton-loader>
+  </div>
+
+  <ngx-skeleton-loader></ngx-skeleton-loader>
+</div>

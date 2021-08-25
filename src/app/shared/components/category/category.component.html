@@ -1,3 +1,6 @@
-<div class="category">
-  {{ category?.title }}
+<div class="category" [class.active]="active">
+  <span>{{ category?.title }}</span>
+
+  <!-- loading -->
+  <ngx-skeleton-loader *ngIf="!category" [theme]="{ margin: '-5px' }"></ngx-skeleton-loader>
 </div>

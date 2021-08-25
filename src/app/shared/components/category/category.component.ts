@@ -8,6 +8,7 @@ import { Category } from '@shared/interfaces/category';
 })
 export class CategoryComponent {
   @Input() category: Category | null = null;
+  @Input() active: boolean = false;
 
   constructor() {}
 }

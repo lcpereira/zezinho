@@ -1,42 +1,56 @@
 @import '~src/sass/variables';
 @import '~src/sass/utils';
 
-header {
-    background-color: $bg-color;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-    height: 60px;
-    color: $light;
+.product {
+    @include box-shadow;
 
-    & .link {
-        color: $light;
-        font-size: 30px;
+    background-color: $light;
+    border-radius: 4px;
+    padding: 10px;
 
-        @media only screen and (max-width: 600px) {
-            font-size: 20px;
+    &-header {
+        width: 100%;
+        height: 150px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & img {
+            max-width: 100px;
         }
     }
 
-    & .location {
+    &-content {
+        height: 50px;
+
+        & span {
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    &-footer {
+        font-weight: bold;
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
-        & .address {
-            margin-left: 5px;
-            margin-right: 10px;
-            @include ellipsis(350px);
-
-            @media only screen and (max-width: 600px) {
-                font-size: 14px;
-                @include ellipsis(130px);
-            }
-        }
-
-        & .remove {
+        & .cart {
+            font-size: 30px;
             cursor: pointer;
-            font-size: 20px;
+            color: lighten($dark, 15%);
+
+            &:hover {
+                color: darken($primary, 10%);
+            }
+
+            &.active {
+                color: darken($primary, 5%);
+            }
         }
     }
 }
