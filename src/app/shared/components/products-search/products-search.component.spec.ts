@@ -21,4 +21,16 @@ describe('ProductsSearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit event search', (done) => {
+    jest.spyOn(component.search, 'emit');
+
+    component.onSearch('Test Search');
+
+    // timeout por conta do debouce, até emitir o evento
+    setTimeout(() => {
+      expect(component.search.emit).toHaveBeenCalledWith('Test Search');
+      done();
+    }, 500);
+  });
 });

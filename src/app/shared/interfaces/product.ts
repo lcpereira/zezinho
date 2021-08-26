@@ -9,7 +9,6 @@ export interface ProductVariant {
 export interface Product {
   id: string;
   title: string;
-  rgb: boolean;
   images: ProductImage[];
   productVariants: ProductVariant[];
 }

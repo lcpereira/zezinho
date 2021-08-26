@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MapGeocoder, MapGeocoderResponse } from '@angular/google-maps';
 import { Subject, Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { LoadingService } from '../loading/loading.service';
 
@@ -16,7 +17,11 @@ export class AddressSearchComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
 
-  constructor(private geocoder: MapGeocoder, private loadingService: LoadingService) {}
+  constructor(
+    private geocoder: MapGeocoder,
+    private toastr: ToastrService,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -52,16 +57,22 @@ export class AddressSearchComponent implements OnInit, OnDestroy {
         },
         (error: GeolocationPositionError) => {
           if (error.PERMISSION_DENIED) {
-            alert('A captura pela localização não foi permitida');
+            this.toastr.warning('A captura pela localização não foi permitida', '', {
+              positionClass: 'toast-top-center',
+            });
           } else {
-            alert('Não foi possível capturar sua localização');
+            this.toastr.warning('Não foi possível capturar sua localização', '', {
+              positionClass: 'toast-top-center',
+            });
           }
 
           this.loadingService.close();
         }
       );
     } else {
-      alert('O Serviço de geolocalização não é suportado pelo seu navegador.');
+      this.toastr.warning('O Serviço de geolocalização não é suportado pelo seu navegador.', '', {
+        positionClass: 'toast-top-center',
+      });
       this.loadingService.close();
     }
   }

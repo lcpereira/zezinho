@@ -13,8 +13,8 @@ import { Inject } from '@angular/core';
 /** @dynamic */
 @Injectable()
 export class LoadingService {
-  private isOpen = false;
-  private currentComponentRef: ComponentRef<LoadingComponent> | null = null;
+  isOpen = false;
+  currentComponentRef: ComponentRef<LoadingComponent> | null = null;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -35,6 +35,7 @@ export class LoadingService {
   }
 
   close(): void {
+    /* istanbul ignore else */
     if (this.currentComponentRef) {
       this.currentComponentRef.destroy();
       this.isOpen = false;

@@ -11,8 +11,9 @@ module.exports = {
   }),
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
-    'src/app/**/*.ts',
-    '!src/app/**/*module.ts',
+    'src/app/**/*.component.ts',
+    'src/app/**/*.service.ts',
+    'src/app/**/*.guard.ts',
   ],
   coverageThreshold: {
     global: {

@@ -1,8 +1,8 @@
 export interface UserData {
+  id: string;
   streetName: string;
   streetNumber: number;
-  streetComplement: string;
   latitude: number;
   longitude: number;
-  id: string;
+  streetComplement?: string;
 }

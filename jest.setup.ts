@@ -25,3 +25,41 @@ Object.defineProperty(document.body.style, 'transform', {
     };
   },
 });
+
+const mockGoogle = () => {
+  return {
+    maps: {
+      GeocoderStatus: {
+        OK: 'OK',
+      },
+      GeocoderLocationType: {
+        GEOMETRIC_CENTER: 'GEOMETRIC_CENTER',
+      },
+      LatLng: function (lat: string, lng: string) {
+        return {
+          latitude: parseFloat(lat),
+          longitude: parseFloat(lng),
+
+          lat: function () {
+            return this.latitude;
+          },
+          lng: function () {
+            return this.longitude;
+          },
+        };
+      },
+      LatLngBounds: function (ne: string, sw: string) {
+        return {
+          getSouthWest: function () {
+            return sw;
+          },
+          getNorthEast: function () {
+            return ne;
+          },
+        };
+      },
+    },
+  };
+};
+
+Object.defineProperty(window, 'google', { value: mockGoogle() });
