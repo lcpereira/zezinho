@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { UserData } from '@shared/interfaces/user-data';
 import { LocalStorageService } from '@services/local-storage.service';
 import { StorageKey } from '@shared/enums/storage-key.enum';
@@ -19,40 +17,13 @@ import { ToastrService } from 'ngx-toastr';
 export class HomeComponent {
   addresses: google.maps.GeocoderResult[] | null = null;
 
-  apiMapLoaded: Observable<boolean>;
-  mapOptions: google.maps.MapOptions = {
-    draggable: false,
-    disableDefaultUI: true,
-    disableDoubleClickZoom: true,
-    scrollwheel: false,
-    clickableIcons: false,
-    draggableCursor: 'initial',
-    center: {
-      lat: -23.55365,
-      lng: -46.69279,
-    },
-  };
-
   constructor(
-    httpClient: HttpClient,
     private router: Router,
     private toastr: ToastrService,
     private loadingService: LoadingService,
     private distributorsQuery: DistributorsQuery,
     private localStorageService: LocalStorageService
-  ) {
-    this.apiMapLoaded = httpClient
-      .jsonp(
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyAzNYxiTkC4fx0xcr3Joc42rDGF48Bnlzw',
-        'callback'
-      )
-      .pipe(
-        map(() => {
-          return true;
-        }),
-        catchError(() => of(false))
-      );
-  }
+  ) {}
 
   onUserData(userData: UserData): void {
     this.loadingService.open();

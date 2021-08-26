@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { ProductCardComponent } from './product-card.component';
 
@@ -9,6 +10,7 @@ describe('ProductCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProductCardComponent],
+      imports: [NgxSkeletonLoaderModule],
     }).compileComponents();
   });
 

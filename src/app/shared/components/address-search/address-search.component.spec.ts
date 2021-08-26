@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LoadingModule } from '../loading/loading.module';
 
 import { AddressSearchComponent } from './address-search.component';
 
@@ -9,6 +10,7 @@ describe('AddressSearchComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AddressSearchComponent],
+      imports: [LoadingModule],
     }).compileComponents();
   });
 

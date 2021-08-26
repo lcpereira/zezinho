@@ -5,7 +5,8 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "node",
-      "jest"
+      "jest",
+      "googlemaps"
     ],
     "esModuleInterop": true
   },

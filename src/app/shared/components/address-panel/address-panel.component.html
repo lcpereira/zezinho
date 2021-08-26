@@ -4,24 +4,28 @@
 
 <ng-template #first_step>
   <div class="first-step">
-    <div class="no-addresses" *ngIf="!addresses || !addresses.length">
+    <div class="no-addresses" *ngIf="!interceptedAddresses || !interceptedAddresses.length">
       <span
         class="mdi icon"
         [ngClass]="{
-          'mdi-map-search': !addresses,
-          'mdi-map-marker-remove': addresses && !addresses.length
+          'mdi-map-search': !interceptedAddresses,
+          'mdi-map-marker-remove': interceptedAddresses && !interceptedAddresses.length
         }"
       ></span>
-      <span *ngIf="!addresses"
+      <span *ngIf="!interceptedAddresses"
         >Informe seu endereço no campo acima e selecione para podermos encontrar produtos próximos
         de você</span
       >
-      <span *ngIf="addresses && !addresses.length"
+      <span *ngIf="interceptedAddresses && !interceptedAddresses.length"
         >Não encontramos um endereço válido para exibir, experimente buscar pelo nome da rua</span
       >
     </div>
 
-    <div class="card" *ngFor="let address of addresses" (click)="onSelectAddress(address)">
+    <div
+      class="card"
+      *ngFor="let address of interceptedAddresses"
+      (click)="onSelectAddress(address)"
+    >
       <span class="mdi mdi-map-marker icon"></span>
       <span class="address">{{ address.formatted_address }}</span>
       <span class="mdi mdi-chevron-right icon"></span>

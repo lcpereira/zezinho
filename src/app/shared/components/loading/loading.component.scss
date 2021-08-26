@@ -13,11 +13,11 @@
     background-color: rgba($dark, .3);
 
     & .spinner {
-        border: 10px solid $light;
+        border: 5px solid $light;
         border-radius: 50%;
-        border-top: 10px solid $primary;
-        width: 120px;
-        height: 120px;
+        border-top: 5px solid $primary;
+        width: 60px;
+        height: 60px;
         -webkit-animation: spin 2s linear infinite;
         animation: spin 2s linear infinite;
     }

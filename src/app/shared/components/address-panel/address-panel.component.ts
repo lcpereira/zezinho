@@ -8,7 +8,14 @@ import { UserData } from '@shared/interfaces/user-data';
   styleUrls: ['./address-panel.component.scss'],
 })
 export class AddressPanelComponent {
-  @Input() addresses: google.maps.GeocoderResult[] | null = null;
+  interceptedAddresses: google.maps.GeocoderResult[] | null = null;
+
+  @Input()
+  set addresses(addresses: google.maps.GeocoderResult[] | null) {
+    this.interceptedAddresses = addresses;
+    this.onBackStep();
+  }
+
   @Output() userData = new EventEmitter<UserData>();
 
   submitted = false;
@@ -37,6 +44,7 @@ export class AddressPanelComponent {
 
   onBackStep(): void {
     this.isFirstStep = true;
+    this.submitted = false;
   }
 
   onSubmit(): void {
