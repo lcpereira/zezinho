@@ -3,14 +3,7 @@ export interface ProductImage {
 }
 
 export interface ProductVariant {
-  title: string;
-  availableDate: Date;
   price: number;
-  description: string;
-  subtitle: string;
-  volume: string;
-  inventoryItemId: string;
-  productVariantId: string;
 }
 
 export interface Product {

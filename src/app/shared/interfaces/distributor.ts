@@ -1,6 +1,5 @@
 export interface Distributor {
   id: string;
-  // Não achei necessário mapear todos os campos :)
 }
 
 export interface DistributorsResponse {
