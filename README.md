@@ -34,3 +34,4 @@ npm run test:coverage
 
 - [x] Use Action for CI/CD
 - [ ] Improve code coverage
+- [ ] Stylize 404 Page
