@@ -1,5 +1,5 @@
 # Zezinho
-[Demo](https://lcpereira.github.io/marvel-catalog)
+[Demo](https://lcpereira.github.io/zezinho)
 
 To test the system, it is necessary to use the address **Rua Américo Brasiliense, São Paulo**
 
