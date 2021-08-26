@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { MapGeocoder, MapGeocoderResponse } from '@angular/google-maps';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { LoadingService } from '../loading/loading.service';
 
 @Component({
   selector: 'app-address-search',
@@ -15,7 +16,7 @@ export class AddressSearchComponent implements OnInit, OnDestroy {
 
   private subscriptions = new Subscription();
 
-  constructor(private geocoder: MapGeocoder) {}
+  constructor(private geocoder: MapGeocoder, private loadingService: LoadingService) {}
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -41,11 +42,13 @@ export class AddressSearchComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPosition(): void {
-    // TODO: Adicionar um loading...
+    this.loadingService.open();
+
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => {
           this.onSearchByLatLng(position.coords.latitude, position.coords.longitude);
+          this.loadingService.close();
         },
         (error: GeolocationPositionError) => {
           if (error.PERMISSION_DENIED) {
@@ -53,10 +56,13 @@ export class AddressSearchComponent implements OnInit, OnDestroy {
           } else {
             alert('Não foi possível capturar sua localização');
           }
+
+          this.loadingService.close();
         }
       );
     } else {
       alert('O Serviço de geolocalização não é suportado pelo seu navegador.');
+      this.loadingService.close();
     }
   }
 

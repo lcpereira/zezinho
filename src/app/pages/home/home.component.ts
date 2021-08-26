@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { UserData } from '@shared/interfaces/user-data';
@@ -8,13 +8,15 @@ import { StorageKey } from '@shared/enums/storage-key.enum';
 import { Router } from '@angular/router';
 import { DistributorsQuery } from '@graphql/distributors.query';
 import { Distributor, DistributorsRequest } from '@shared/interfaces/distributor';
+import { LoadingService } from '@shared/components/loading/loading.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   addresses: google.maps.GeocoderResult[] | null = null;
 
   apiMapLoaded: Observable<boolean>;
@@ -34,10 +36,11 @@ export class HomeComponent implements OnInit {
   constructor(
     httpClient: HttpClient,
     private router: Router,
+    private toastr: ToastrService,
+    private loadingService: LoadingService,
     private distributorsQuery: DistributorsQuery,
     private localStorageService: LocalStorageService
   ) {
-    // TODO: loading e identificar quando não carregou o mapa
     this.apiMapLoaded = httpClient
       .jsonp(
         'https://maps.googleapis.com/maps/api/js?key=AIzaSyAzNYxiTkC4fx0xcr3Joc42rDGF48Bnlzw',
@@ -45,17 +48,15 @@ export class HomeComponent implements OnInit {
       )
       .pipe(
         map(() => {
-          // TODO: Fim do loading
           return true;
         }),
         catchError(() => of(false))
       );
   }
 
-  ngOnInit(): void {}
-
   onUserData(userData: UserData): void {
-    // TODO: mostrar loading...
+    this.loadingService.open();
+
     const variables: DistributorsRequest = {
       algorithm: 'NEAREST',
       lat: String(userData.latitude),
@@ -67,8 +68,12 @@ export class HomeComponent implements OnInit {
       .watch(variables)
       .valueChanges.pipe(map((result) => result.data.pocSearch))
       .subscribe((distributors) => {
+        this.loadingService.close();
+
         if (!distributors || !distributors.length) {
-          // TODO: disparar notificação
+          this.toastr.warning('Não encontramos distribuidor neste endereço', '', {
+            positionClass: 'toast-top-center',
+          });
           return;
         }
 
