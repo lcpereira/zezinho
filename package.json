@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod --base-href https://lcpereira.github.io/zezinho/ --deploy-url https://lcpereira.github.io/zezinho/",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:coverage": "jest --coverage --no-cache"
