@@ -10,7 +10,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage --no-cache"
   },
-  "private": true,
+  "private": false,
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
