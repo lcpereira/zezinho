@@ -1,0 +1,20 @@
+@import '~src/sass/variables';
+
+.not-found {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    .icon {
+        font-size: 80px;
+        color: lighten($dark, 15%);
+    }
+
+    .title {
+        font-size:  30px;
+        margin-bottom:  40px;
+    }
+}

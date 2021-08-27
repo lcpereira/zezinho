@@ -2,12 +2,16 @@
 @import '~src/sass/utils';
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
     background-color: $bg-color;
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
     height: 60px;
+    width: 100%;
     color: $light;
 
     & .link {
@@ -39,4 +43,8 @@ header {
             font-size: 20px;
         }
     }
+}
+
+.fake-header {
+    height: 60px;
 }
