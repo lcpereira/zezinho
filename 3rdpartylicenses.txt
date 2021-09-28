@@ -81,6 +81,8 @@ SOFTWARE.
 
 @apollo/client/utilities
 
+@apollo/client/utilities/globals
+
 @wry/context
 MIT
 MIT License

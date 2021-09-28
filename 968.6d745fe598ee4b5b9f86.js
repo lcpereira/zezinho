@@ -1,4 +1,4 @@
-"use strict";(self.webpackChunkzezinho=self.webpackChunkzezinho||[]).push([[968],{2968:(ue,h,i)=>{i.r(h),i.d(h,{ProductsModule:()=>se});var a=i(8583),C=i(6868),p=i(5050),x=i(8002),e=i(639),y=i(5565),_=i(6571);let A=(()=>{class t extends y.AE{constructor(){super(...arguments),this.document=_.ZP`
+"use strict";(self.webpackChunkzezinho=self.webpackChunkzezinho||[]).push([[968],{2968:(ue,h,i)=>{i.r(h),i.d(h,{ProductsModule:()=>se});var a=i(8583),C=i(6868),p=i(5050),x=i(8002),e=i(639),y=i(9182),_=i(6571);let A=(()=>{class t extends y.AE{constructor(){super(...arguments),this.document=_.ZP`
     query poc($id: ID!, $categoryId: Int, $search: String) {
       poc(id: $id) {
         id
